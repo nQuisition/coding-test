@@ -14,7 +14,11 @@
         <div class="filters-container">
           <div class="filter-container__filter">
             <label for="appSelect">App</label>
-            <select name="appSelect" id="appSelect" class="filter-select filter-select--app">
+            <select
+              name="appSelect"
+              id="appSelect"
+              class="filter-select filter-select--app"
+            >
               <% apps.forEach(app => { %>
               <option><%= app %></option>
               <% }); %>
@@ -48,7 +52,9 @@
             <button class="filter-button">Filter</button>
           </div>
         </div>
-        <div class="analytics-chart-container"></div>
+        <div class="analytics-chart-container">
+          <canvas class="analytics-chart"></canvas>
+        </div>
         <div class="analytics-table-container"></div>
       </div>
     </div>

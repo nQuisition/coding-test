@@ -7,8 +7,33 @@ const loadData = () =>
     data = res;
   });
 
+const validQueryKeysMap = {
+  app: "App",
+  platform: "Platform",
+  adNetwork: "Ad Network"
+};
+
+const responseKeysMap = {
+  App: "app",
+  Platform: "platform",
+  Country: "country",
+  Date: "date",
+  "Ad Network": "adNetwork",
+  "Daily Users": "dailyUsers"
+};
+
+// Use async in case we will use DB in the future
 const getData = query => {
-  return data;
+  return Promise.resolve(
+    data.filter(dataPoint =>
+      Object.keys(query).reduce((valid, key) => {
+        if (!validQueryKeysMap[key] || query[key] === "All") {
+          return valid;
+        }
+        return valid && dataPoint[validQueryKeysMap[key]] === query[key];
+      }, true)
+    )
+  );
 };
 
 // eslint-disable-next-line no-underscore-dangle

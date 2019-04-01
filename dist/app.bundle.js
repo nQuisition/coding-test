@@ -94,7 +94,7 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ \"./src/utils.js\");\n\n\nObject(_utils__WEBPACK_IMPORTED_MODULE_0__[\"default\"])();\n\n\n//# sourceURL=webpack:///./src/app.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ \"./src/utils.js\");\n\n\nconst appSelect = document.querySelector(\".filter-select--app\");\nconst platformSelect = document.querySelector(\".filter-select--platform\");\nconst adNetworkSelect = document.querySelector(\".filter-select--ad-network\");\nconst filterButton = document.querySelector(\".filter-button\");\n\nfilterButton.addEventListener(\"click\", function(e) {\n  e.preventDefault();\n  const app = appSelect.value;\n  const platform = platformSelect.value;\n  const adNetwork = adNetworkSelect.value;\n  Object(_utils__WEBPACK_IMPORTED_MODULE_0__[\"default\"])({ app, platform, adNetwork }).then(res => {\n    console.log(res);\n  });\n});\n\n\n//# sourceURL=webpack:///./src/app.js?");
 
 /***/ }),
 
@@ -106,7 +106,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _uti
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\nconst apiUrl = \"http://localhost:3000/data\";\n\n// Using fetch here, even though it lacks in support a little; I usually use axios\n// but decided to keep dependencies to a minimum\nconst requestApi = query =>\n  fetch(apiUrl, {\n    method: \"get\",\n    headers: {\n      \"Content-Type\": \"application/json\"\n    },\n    body: JSON.stringify(query)\n  });\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (requestApi);\n\n\n//# sourceURL=webpack:///./src/utils.js?");
+eval("__webpack_require__.r(__webpack_exports__);\nconst apiUrl = \"http://localhost:3000/data\";\n\n// Using fetch here, even though it lacks in support a little; I usually use axios\n// but decided to keep dependencies to a minimum\nfunction requestApi(query) {\n  return fetch(apiUrl, {\n    method: \"post\",\n    headers: {\n      \"Content-Type\": \"application/json\"\n    },\n    body: JSON.stringify(query)\n  }).then(function(res) {\n    if (res.status !== 200) {\n      // Error; handle!\n      throw new Error(\"Error retrieving data\");\n    }\n    return res.json();\n  });\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (requestApi);\n\n\n//# sourceURL=webpack:///./src/utils.js?");
 
 /***/ })
 

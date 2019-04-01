@@ -14,7 +14,7 @@
         <div class="filters-container">
           <div class="filter-container__filter">
             <label for="appSelect">App</label>
-            <select name="appSelect" id="appSelect" class="filter-select">
+            <select name="appSelect" id="appSelect" class="filter-select filter-select--app">
               <% apps.forEach(app => { %>
               <option><%= app %></option>
               <% }); %>
@@ -25,7 +25,7 @@
             <select
               name="platformSelect"
               id="platformSelect"
-              class="filter-select"
+              class="filter-select filter-select--platform"
             >
               <% platforms.forEach(platform => { %>
               <option><%= platform %></option>
@@ -37,7 +37,7 @@
             <select
               name="adNetworkSelect"
               id="adNetworkSelect"
-              class="filter-select"
+              class="filter-select filter-select--ad-network"
             >
               <% adNetworks.forEach(adNetwork => { %>
               <option><%= adNetwork %></option>

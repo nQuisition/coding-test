@@ -20,8 +20,11 @@ app.get("/", (req, res) => {
   res.render("index", params);
 });
 
-app.get("/data", (req, res, next) => {
-  const { startDate, endDate, country, app, platform, adNetwork } = req.body;
+app.post("/data", (req, res, next) => {
+  // const { startDate, endDate, country, app, platform, adNetwork } = req.body;
+  dataSource.getData(req.body).then(data => {
+    res.status(200).json({ message: "All ok!", data });
+  });
 });
 
 // Handle 404

@@ -68,3 +68,26 @@ body {
   border-radius: 0;
   padding: 10px;
 }
+
+.analytics-table-container {
+  width: 100%;
+  height: 500px;
+  overflow-y: scroll;
+}
+
+.analytics-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.analytics-table,
+.analytics-table tr,
+.analytics-table th,
+.analytics-table td {
+  border: 1px solid #888;
+}
+
+.analytics-table th,
+.analytics-table td {
+  padding: 5px;
+}

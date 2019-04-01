@@ -22,17 +22,25 @@ const responseKeysMap = {
   "Daily Users": "dailyUsers"
 };
 
+const toResponse = unprocessed =>
+  Object.keys(unprocessed).reduce((res, key) => {
+    res[responseKeysMap[key]] = unprocessed[key];
+    return res;
+  }, {});
+
 // Use async in case we will use DB in the future
 const getData = query => {
   return Promise.resolve(
-    data.filter(dataPoint =>
-      Object.keys(query).reduce((valid, key) => {
-        if (!validQueryKeysMap[key] || query[key] === "All") {
-          return valid;
-        }
-        return valid && dataPoint[validQueryKeysMap[key]] === query[key];
-      }, true)
-    )
+    data
+      .filter(dataPoint =>
+        Object.keys(query).reduce((valid, key) => {
+          if (!validQueryKeysMap[key] || query[key] === "All") {
+            return valid;
+          }
+          return valid && dataPoint[validQueryKeysMap[key]] === query[key];
+        }, true)
+      )
+      .map(toResponse)
   );
 };
 

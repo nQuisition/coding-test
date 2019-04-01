@@ -8,6 +8,7 @@ module.exports = {
   entry: {
     app: path.join(srcDir, "app.js")
   },
+  devtool: "inline-source-map",
   output: {
     path: outDir,
     filename: "[name].bundle.js"

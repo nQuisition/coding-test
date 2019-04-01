@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="main.css" />
+    <title>Games analytics</title>
+  </head>
+  <body>
+    <div class="main-wrapper">
+      <h1 class="main-title">Games Analytics</h1>
+      <div class="content-wrapper">
+        <div class="filters-container">
+          <div class="filter-container__filter">
+            <label for="appSelect">App</label>
+            <select name="appSelect" id="appSelect" class="filter-select">
+              <% apps.forEach(app => { %>
+              <option><%= app %></option>
+              <% }); %>
+            </select>
+          </div>
+          <div class="filter-container__filter">
+            <label for="platformSelect">Platform</label>
+            <select
+              name="platformSelect"
+              id="platformSelect"
+              class="filter-select"
+            >
+              <% platforms.forEach(platform => { %>
+              <option><%= platform %></option>
+              <% }); %>
+            </select>
+          </div>
+          <div class="filter-container__filter">
+            <label for="adNetworkSelect">Ad Network</label>
+            <select
+              name="adNetworkSelect"
+              id="adNetworkSelect"
+              class="filter-select"
+            >
+              <% adNetworks.forEach(adNetwork => { %>
+              <option><%= adNetwork %></option>
+              <% }); %>
+            </select>
+          </div>
+          <div class="filter-container__filter">
+            <button class="filter-button">Filter</button>
+          </div>
+        </div>
+        <div class="analytics-chart"></div>
+        <div class="analytics-table"></div>
+      </div>
+    </div>
+    <script src="app.bundle.js"></script>
+  </body>
+</html>

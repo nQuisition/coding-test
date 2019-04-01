@@ -1,17 +1,26 @@
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
-const dataParser = require("./dataParser");
-
-// For simplicity keep our data here
-let data;
+const dataSource = require("./dataSource");
 
 const app = express();
 app.use(bodyParser.json());
 
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+
 app.use(express.static(path.join(__dirname, "..", "dist")));
 
-app.use("/data", (req, res, next) => {
+app.get("/", (req, res) => {
+  const params = {
+    apps: ["All", ...dataSource.getAllApps()],
+    platforms: ["All", ...dataSource.getAllPlatforms()],
+    adNetworks: ["All", ...dataSource.getAllAdNetworks()]
+  };
+  res.render("index", params);
+});
+
+app.get("/data", (req, res, next) => {
   const { startDate, endDate, country, app, platform, adNetwork } = req.body;
 });
 
@@ -31,9 +40,6 @@ app.use((error, req, res, next) => {
   });
 });
 
-const loadData = () =>
-  dataParser.getData().then(res => {
-    data = res;
-  });
+const loadData = () => dataSource.loadData();
 
 module.exports = { app, loadData };

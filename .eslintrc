@@ -1,0 +1,15 @@
+{
+  "extends": ["airbnb", "prettier"],
+  "env": {
+    "node": true,
+    "es6": true,
+    "browser": true
+  },
+  "rules": {
+    "quotes": ["error", "double", { "avoidEscape": true }],
+    "implicit-arrow-linebreak": "off",
+    "arrow-parens": "off",
+    "react/jsx-filename-extension": "off",
+    "func-names": "off"
+  }
+}

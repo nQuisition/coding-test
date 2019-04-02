@@ -1,6 +1,7 @@
+import Chart from "chart.js";
 import requestApi from "./utils";
 import * as state from "./state";
-import Chart from "chart.js";
+import BarChart from "./charts/barChart";
 
 const appSelect = document.querySelector(".filter-select--app");
 const platformSelect = document.querySelector(".filter-select--platform");
@@ -69,10 +70,7 @@ function constructChart() {
   const ctx = chartCanvas.getContext("2d");
   const data = state
     .get()
-    .dataPoints.map(function(pt) {
-      return { ...pt, date: new Date(pt.date) };
-    })
-    .sort(function(a, b) {
+    .dataPoints.sort(function(a, b) {
       return a.date - b.date;
     })
     .map(function(pt) {
@@ -127,9 +125,38 @@ filterButton.addEventListener("click", function(e) {
     state.append({
       dataPoints: data.map(dataPoint => ({
         ...dataPoint,
-        Date: Date(dataPoint.Date)
+        date: new Date(dataPoint.date)
       }))
     });
+
+    const barChart = new BarChart(
+      document.querySelector(".bar-chart").getContext("2d"),
+      {
+        primaryAxisFieldName: "date",
+        primaryAxisFieldComparator: (a, b) => a - b,
+        primaryAxisFieldLabelify: getDateString,
+        secondaryAxisFieldName: "dailyUsers",
+        groupBy: "app",
+        groupColors: {
+          Carz: "#f77",
+          "Blast!": "#7f7",
+          "Bally Ball": "#77f",
+          Screwed: "#f7f",
+          "T-Rex": "#ff7"
+        },
+        spacing: 0.2,
+        dataSets: [
+          {
+            data: data.map(dataPoint => ({
+              ...dataPoint,
+              date: new Date(dataPoint.date)
+            }))
+          }
+        ]
+      }
+    );
+
+    barChart.render();
   });
 });
 
@@ -137,3 +164,72 @@ state.addListenerCallback(function() {
   constructTable();
   constructChart();
 });
+
+const barChart = new BarChart(
+  document.querySelector(".bar-chart").getContext("2d"),
+  {
+    primaryAxisFieldName: "id",
+    primaryAxisFieldComparator: (a, b) => a - b,
+    secondaryAxisFieldName: "value",
+    groupBy: "country",
+    spacing: 0.4,
+    dataSets: [
+      {
+        data: [
+          {
+            id: 0,
+            country: "RU",
+            value: 10
+          },
+          {
+            id: 0,
+            country: "UK",
+            value: 40
+          },
+          {
+            id: 1,
+            country: "RU",
+            value: 1
+          },
+          {
+            id: 2,
+            country: "RU",
+            value: 9
+          },
+          {
+            id: 2,
+            country: "UK",
+            value: 15
+          },
+          {
+            id: 2,
+            country: "US",
+            value: 9
+          },
+          {
+            id: 3,
+            country: "RU",
+            value: 8
+          },
+          {
+            id: 3,
+            country: "PL",
+            value: 7
+          },
+          {
+            id: 4,
+            country: "UK",
+            value: 6
+          },
+          {
+            id: 5,
+            country: "RU",
+            value: 5
+          }
+        ]
+      }
+    ]
+  }
+);
+
+barChart.render();
